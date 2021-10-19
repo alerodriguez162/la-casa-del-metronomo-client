@@ -1,4 +1,4 @@
-import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
+import { Route, Switch, withRouter } from "react-router-dom";
 import "./App.css";
 import Login from "./components/Auth/Login";
 import SignUp from "./components/Auth/SignUp";
@@ -10,32 +10,52 @@ import Footer from "./components/Layout/Footer";
 import Header from "./components/Layout/Header";
 import PDP from "./components/PDP";
 import PLP from "./components/PLP";
+import UsersProvider from "./Context/UsersContext/UsersProvider";
+import AdminRoute from "./Routes/AdminRoute";
+import AuthRoute from "./Routes/AuthRoute";
+import PrivateRoute from "./Routes/PrivatedRoute";
 
-function App() {
+function App({ location }) {
   return (
     <>
-      <Router>
-        <Header />
+      <UsersProvider>
+        {location.pathname.includes("admin") || location.pathname.includes("login") ? null : <Header />}
 
         <Switch>
-          <Route exact path="/" component={Home} />
+          <AuthRoute exact path="/login" component={Login} />
+          <AuthRoute exact path="/register" component={SignUp} />
 
-          <Route exact path="/login" component={Login} />
-          <Route exact path="/register" component={SignUp} />
+          <Route exact path="/" component={Home} />
 
           <Route exact path="/products" component={PLP} />
           <Route exact path="/product/:id" component={PDP} />
 
-          <Route exact path="/cart" component={Cart} />
+          <PrivateRoute exact path="/cart" component={Cart} />
 
-          <Route exact path="/checkout" component={Checkout} />
-          <Route exact path="/checkout/summary" component={Summary} />
+          <PrivateRoute exact path="/checkout" component={Checkout} />
+          <PrivateRoute exact path="/checkout/summary" component={Summary} />
+
+          <AdminRoute path="/admin" />
+
+          {/* <Route
+            path="/admin"
+            render={(props) => {
+              return (
+                <>
+                  <Admin>
+                    <Route exact path={`${props.match.url}/users`} component={Users} />
+                    <Route exact path={`${props.match.url}/categories`} component={Categories} />
+                    <Route exact path={`${props.match.url}/products`} component={Products} />
+                  </Admin>
+                </>
+              );
+            }}
+          /> */}
         </Switch>
-
-        <Footer />
-      </Router>
+        {location.pathname.includes("admin") || location.pathname.includes("login") ? null : <Footer />}
+      </UsersProvider>
     </>
   );
 }
 
-export default App;
+export default withRouter(App);

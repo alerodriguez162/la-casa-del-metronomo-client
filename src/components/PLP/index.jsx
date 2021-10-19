@@ -2,45 +2,9 @@ import { Dialog, Disclosure, Transition } from "@headlessui/react";
 import { XIcon } from "@heroicons/react/outline";
 import { ChevronDownIcon, PlusSmIcon } from "@heroicons/react/solid";
 import { Fragment, useState } from "react";
-
+import { useLocation } from "react-router-dom";
 const breadcrumbs = [{ id: 1, name: "Men", href: "#" }];
-const filters = [
-  {
-    id: "color",
-    name: "Color",
-    options: [
-      { value: "white", label: "White" },
-      { value: "beige", label: "Beige" },
-      { value: "blue", label: "Blue" },
-      { value: "brown", label: "Brown" },
-      { value: "green", label: "Green" },
-      { value: "purple", label: "Purple" },
-    ],
-  },
-  {
-    id: "category",
-    name: "Category",
-    options: [
-      { value: "new-arrivals", label: "All New Arrivals" },
-      { value: "tees", label: "Tees" },
-      { value: "crewnecks", label: "Crewnecks" },
-      { value: "sweatshirts", label: "Sweatshirts" },
-      { value: "pants-shorts", label: "Pants & Shorts" },
-    ],
-  },
-  {
-    id: "sizes",
-    name: "Sizes",
-    options: [
-      { value: "xs", label: "XS" },
-      { value: "s", label: "S" },
-      { value: "m", label: "M" },
-      { value: "l", label: "L" },
-      { value: "xl", label: "XL" },
-      { value: "2xl", label: "2XL" },
-    ],
-  },
-];
+
 const products = [
   {
     id: 1,
@@ -70,6 +34,36 @@ function classNames(...classes) {
 }
 
 const PLP = () => {
+  const search = useLocation().search;
+  const category = new URLSearchParams(search).get("category");
+  const productSearch = new URLSearchParams(search).get("search");
+  console.log(productSearch);
+  const filters = [
+    {
+      id: "category",
+      name: "Categoria",
+      options: [
+        { value: "new-arrivals", label: "All New Arrivals" },
+        { value: "tees", label: "Tees" },
+        { value: "crewnecks", label: "Crewnecks" },
+        { value: "sweatshirts", label: "Sweatshirts" },
+        { value: "pants-shorts", label: "Pants & Shorts" },
+      ],
+    },
+    {
+      id: "sizes",
+      name: "Sizes",
+      options: [
+        { value: "xs", label: "XS" },
+        { value: "s", label: "S" },
+        { value: "m", label: "M" },
+        { value: "l", label: "L" },
+        { value: "xl", label: "XL" },
+        { value: "2xl", label: "2XL" },
+      ],
+    },
+  ];
+
   const [mobileFiltersOpen, setMobileFiltersOpen] = useState(false);
   return (
     <>

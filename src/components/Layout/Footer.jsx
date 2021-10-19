@@ -27,7 +27,7 @@ const footerNavigation = {
   ],
 };
 
-const Footer = () => {
+const Footer = (props) => {
   return (
     <footer aria-labelledby="footer-heading" className="bg-white border-t border-gray-200">
       <h2 id="footer-heading" className="sr-only">
