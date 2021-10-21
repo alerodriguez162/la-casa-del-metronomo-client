@@ -28,19 +28,19 @@ const Home = () => {
   const collections = [
     {
       name: "Instrumentos",
-      href: "#",
+      href: "/products",
       imageSrc: "http://www.blog.musicacreativa.com/wp-content/uploads/venta-instrumentos-musicales_web-1-1100x733.jpg",
       imageAlt: "Woman wearing a comfortable cotton t-shirt.",
     },
     {
       name: "Accesorios",
-      href: "#",
+      href: "/products",
       imageSrc: "https://ae01.alicdn.com/kf/H66b268d6406e4faaa747ce013d63d142J.jpg?width=892&height=892&hash=1784",
       imageAlt: "Man wearing a comfortable and casual cotton t-shirt.",
     },
     {
       name: "Cuerdas",
-      href: "#",
+      href: "/products",
       imageSrc: "https://guitarriego.com/wp-content/uploads/2020/07/Cuerdas-guitarra-electrica-acustica-Daddario-Rotosound-Elixir-Ernie-Ball-Dunlop-GHS-DR-Optima-Fender-Guitarriego-1024x435.jpg",
       imageAlt: "Person sitting at a wooden desk with paper note organizer, pencil and tablet.",
     },
@@ -107,10 +107,10 @@ const Home = () => {
                   <div className="absolute inset-0 rounded-lg p-6 flex items-end">
                     <div>
                       <h3 className="mt-1 font-semibold text-white">
-                        <a href={collection.href}>
+                        <Link to={collection.href}>
                           <span className="absolute inset-0" />
                           {collection.name}
-                        </a>
+                        </Link>
                       </h3>
                     </div>
                   </div>

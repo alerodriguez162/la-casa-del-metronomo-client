@@ -16,6 +16,7 @@ const PLP = () => {
   // let location = useLocation();
   const search = useLocation().search;
   const isFeatured = new URLSearchParams(search).get("featured");
+  const searchParam = new URLSearchParams(search).get("search");
 
   const { categories, allCategories, allProducts, products } = useContext(ProductsContext);
 
@@ -35,6 +36,9 @@ const PLP = () => {
   const initialState = () => {
     if (isFeatured) {
       allProducts({ featured: true });
+    }
+    if (searchParam) {
+      allProducts({ search: searchParam });
     } else {
       allProducts();
     }

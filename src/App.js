@@ -1,3 +1,4 @@
+import NotificationContainer from "react-notifications/lib/NotificationContainer";
 import { Route, Switch, withRouter } from "react-router-dom";
 import "./App.css";
 import Login from "./components/Auth/Login";
@@ -62,6 +63,7 @@ function App({ location }) {
             }}
           /> */}
           </Switch>
+          <NotificationContainer />
           {location.pathname.includes("admin") || location.pathname.includes("login") ? null : <Footer />}
         </UsersProvider>
       </ProductsProvider>

@@ -1,83 +1,101 @@
 /* eslint-disable react-hooks/exhaustive-deps */
-import { Dialog, Popover, Tab, Transition } from "@headlessui/react";
+import { Dialog, Popover, Transition } from "@headlessui/react";
 import { MenuIcon, SearchIcon, ShoppingBagIcon, XIcon } from "@heroicons/react/outline";
 import { Fragment, useState } from "react";
-import { Link } from "react-router-dom";
+import { Link, useHistory } from "react-router-dom";
 import useAuth from "../../Hooks/isLoggedIn";
 import ProfileMenu from "./ProfileMenu";
 
 const navigation = {
-  categories: [
-    {
-      name: "Instrumentos",
-      featured: [
-        {
-          name: "New Arrivals",
-          href: "#",
-          imageSrc: "https://tailwindui.com/img/ecommerce-images/mega-menu-category-01.jpg",
-          imageAlt: "Models sitting back to back, wearing Basic Tee in black and bone.",
-        },
-        {
-          name: "Basic Tees",
-          href: "#",
-          imageSrc: "https://tailwindui.com/img/ecommerce-images/mega-menu-category-02.jpg",
-          imageAlt: "Close up of Basic Tee fall bundle with off-white, ochre, olive, and black tees.",
-        },
-        {
-          name: "Accessories",
-          href: "#",
-          imageSrc: "https://tailwindui.com/img/ecommerce-images/mega-menu-category-03.jpg",
-          imageAlt: "Model wearing minimalist watch with black wristband and white watch face.",
-        },
-        {
-          name: "Carry",
-          href: "#",
-          imageSrc: "https://tailwindui.com/img/ecommerce-images/mega-menu-category-04.jpg",
-          imageAlt: "Model opening tan leather long wallet with credit card pockets and cash pouch.",
-        },
-      ],
-    },
-    {
-      name: "Accesorios",
-      featured: [
-        {
-          name: "New Arrivals",
-          href: "#",
-          imageSrc: "https://tailwindui.com/img/ecommerce-images/mega-menu-01-men-category-01.jpg",
-          imageAlt: "Hats and sweaters on wood shelves next to various colors of t-shirts on hangers.",
-        },
-        {
-          name: "Basic Tees",
-          href: "#",
-          imageSrc: "https://tailwindui.com/img/ecommerce-images/mega-menu-01-men-category-02.jpg",
-          imageAlt: "Model wearing light heather gray t-shirt.",
-        },
-        {
-          name: "Accessories",
-          href: "#",
-          imageSrc: "https://tailwindui.com/img/ecommerce-images/mega-menu-01-men-category-03.jpg",
-          imageAlt: "Grey 6-panel baseball hat with black brim, black mountain graphic on front, and light heather gray body.",
-        },
-        {
-          name: "Carry",
-          href: "#",
-          imageSrc: "https://tailwindui.com/img/ecommerce-images/mega-menu-01-men-category-04.jpg",
-          imageAlt: "Model putting folded cash into slim card holder olive leather wallet with hand stitching.",
-        },
-      ],
-    },
+  // categories: [
+  //   {
+  //     name: "Instrumentos",
+  //     featured: [
+  //       {
+  //         name: "New Arrivals",
+  //         href: "#",
+  //         imageSrc: "https://tailwindui.com/img/ecommerce-images/mega-menu-category-01.jpg",
+  //         imageAlt: "Models sitting back to back, wearing Basic Tee in black and bone.",
+  //       },
+  //       {
+  //         name: "Basic Tees",
+  //         href: "#",
+  //         imageSrc: "https://tailwindui.com/img/ecommerce-images/mega-menu-category-02.jpg",
+  //         imageAlt: "Close up of Basic Tee fall bundle with off-white, ochre, olive, and black tees.",
+  //       },
+  //       {
+  //         name: "Accessories",
+  //         href: "#",
+  //         imageSrc: "https://tailwindui.com/img/ecommerce-images/mega-menu-category-03.jpg",
+  //         imageAlt: "Model wearing minimalist watch with black wristband and white watch face.",
+  //       },
+  //       {
+  //         name: "Carry",
+  //         href: "#",
+  //         imageSrc: "https://tailwindui.com/img/ecommerce-images/mega-menu-category-04.jpg",
+  //         imageAlt: "Model opening tan leather long wallet with credit card pockets and cash pouch.",
+  //       },
+  //     ],
+  //   },
+  //   {
+  //     name: "Accesorios",
+  //     featured: [
+  //       {
+  //         name: "New Arrivals",
+  //         href: "#",
+  //         imageSrc: "https://tailwindui.com/img/ecommerce-images/mega-menu-01-men-category-01.jpg",
+  //         imageAlt: "Hats and sweaters on wood shelves next to various colors of t-shirts on hangers.",
+  //       },
+  //       {
+  //         name: "Basic Tees",
+  //         href: "#",
+  //         imageSrc: "https://tailwindui.com/img/ecommerce-images/mega-menu-01-men-category-02.jpg",
+  //         imageAlt: "Model wearing light heather gray t-shirt.",
+  //       },
+  //       {
+  //         name: "Accessories",
+  //         href: "#",
+  //         imageSrc: "https://tailwindui.com/img/ecommerce-images/mega-menu-01-men-category-03.jpg",
+  //         imageAlt: "Grey 6-panel baseball hat with black brim, black mountain graphic on front, and light heather gray body.",
+  //       },
+  //       {
+  //         name: "Carry",
+  //         href: "#",
+  //         imageSrc: "https://tailwindui.com/img/ecommerce-images/mega-menu-01-men-category-04.jpg",
+  //         imageAlt: "Model putting folded cash into slim card holder olive leather wallet with hand stitching.",
+  //       },
+  //     ],
+  //   },
+  // ],
+  pages: [
+    { name: "Instrumentos", href: "/products" },
+    { name: "Accesorios", href: "/products" },
+    { name: "Empresa", href: "/who-whe-are" },
   ],
-  pages: [{ name: "Empresa", href: "/who-whe-are" }],
 };
-
-function classNames(...classes) {
-  return classes.filter(Boolean).join(" ");
-}
 
 const Header = () => {
   const [open, setOpen] = useState(false);
 
-  useAuth();
+  let history = useHistory();
+
+  const { isLoggedIn } = useAuth();
+
+  const [search, setSearch] = useState("");
+
+  const handleForm = (event) => {
+    event.preventDefault();
+
+    setSearch({
+      ...search,
+      [event.target.name]: event.target.value,
+    });
+  };
+
+  const handleSubmit = (e) => {
+    e.preventDefault();
+    history.push(`/products?search=${search.search}`);
+  };
 
   return (
     <>
@@ -105,14 +123,15 @@ const Header = () => {
             leaveTo="-translate-x-full"
           >
             <div className="relative max-w-xs w-full bg-white shadow-xl pb-12 flex flex-col overflow-y-auto">
-              <div className="px-4 pt-5 pb-2 flex">
+              <div className="px-4 pt-5 pb-2 flex justify-between">
                 <button type="button" className="-m-2 p-2 rounded-md inline-flex items-center justify-center text-gray-400" onClick={() => setOpen(false)}>
                   <span className="sr-only">Close menu</span>
                   <XIcon className="h-6 w-6" aria-hidden="true" />
                 </button>
+                {isLoggedIn && <ProfileMenu />}
               </div>
 
-              <Tab.Group as="div" className="mt-2">
+              {/* <Tab.Group as="div" className="mt-2">
                 <div className="border-b border-gray-200">
                   <Tab.List className="-mb-px flex px-4 space-x-8">
                     {navigation.categories.map((category) => (
@@ -149,7 +168,7 @@ const Header = () => {
                     </Tab.Panel>
                   ))}
                 </Tab.Panels>
-              </Tab.Group>
+              </Tab.Group> */}
 
               <div className="border-t border-gray-200 py-6 px-4 space-y-6">
                 {navigation.pages.map((page) => (
@@ -161,18 +180,20 @@ const Header = () => {
                 ))}
               </div>
 
-              <div className="border-t border-gray-200 py-6 px-4 space-y-6">
-                <div className="flow-root">
-                  <a href="/" className="-m-2 p-2 block font-medium text-gray-900">
-                    Create an account
-                  </a>
+              {!isLoggedIn && (
+                <div className="border-t border-gray-200 py-6 px-4 space-y-6">
+                  <div className="flow-root">
+                    <Link to="/register" className="-m-2 p-2 block font-medium text-gray-900">
+                      Crear Cuenta
+                    </Link>
+                  </div>
+                  <div className="flow-root">
+                    <Link to="/login" className="-m-2 p-2 block font-medium text-gray-900">
+                      Iniciar Sesion
+                    </Link>
+                  </div>
                 </div>
-                <div className="flow-root">
-                  <a href="/" className="-m-2 p-2 block font-medium text-gray-900">
-                    Sign in
-                  </a>
-                </div>
-              </div>
+              )}
             </div>
           </Transition.Child>
         </Dialog>
@@ -192,7 +213,7 @@ const Header = () => {
                 <div className="hidden h-full lg:flex">
                   <Popover.Group className="px-4 bottom-0 inset-x-0">
                     <div className="h-full flex justify-center space-x-8">
-                      {navigation.categories.map((category) => (
+                      {/* {navigation.categories.map((category) => (
                         <Popover key={category.name} className="flex">
                           {({ open }) => (
                             <>
@@ -218,9 +239,7 @@ const Header = () => {
                                 leaveTo="opacity-0"
                               >
                                 <Popover.Panel className="absolute z-10 top-full inset-x-0 bg-white text-sm text-gray-500">
-                                  {/* Presentational element used to render the bottom shadow, if we put the shadow on the actual panel it pokes out the top, so we use this shorter element to hide the top of the shadow */}
                                   <div className="absolute inset-0 top-1/2 bg-white shadow" aria-hidden="true" />
-                                  {/* Fake border when menu is open */}
                                   <div className="absolute inset-0 top-0 h-px max-w-7xl mx-auto px-8" aria-hidden="true">
                                     <div className={classNames(open ? "bg-gray-200" : "bg-transparent", "w-full h-px transition-colors ease-out duration-200")} />
                                   </div>
@@ -250,7 +269,7 @@ const Header = () => {
                             </>
                           )}
                         </Popover>
-                      ))}
+                      ))} */}
 
                       {navigation.pages.map((page) => (
                         <Link key={page.name} to={page.href} className="flex items-center text-sm font-medium text-gray-700 hover:text-gray-800">
@@ -269,30 +288,57 @@ const Header = () => {
                   </button>
 
                   {/* Search */}
-                  <a href="/" className="ml-2 p-2 text-gray-400 hover:text-gray-500">
+                  {/* <button href="/" className="ml-2 p-2 text-gray-400 hover:text-gray-500">
                     <span className="sr-only">Search</span>
                     <SearchIcon className="w-6 h-6" aria-hidden="true" />
-                  </a>
+                  </button> */}
+                  <form onSubmit={handleSubmit}>
+                    <input
+                      type="text"
+                      name="search"
+                      onChange={(e) => {
+                        handleForm(e);
+                      }}
+                      id="search"
+                      className="focus:ring-indigo-500 focus:border-indigo-500 block w-full pl-10 sm:text-sm border-gray-300 rounded-md"
+                      placeholder="Busqueda..."
+                    />
+                  </form>
                 </div>
 
                 {/* Logo (lg-) */}
-                <a href="/" className="lg:hidden">
-                  <span className="sr-only">Workflow</span>
-                  <img src="https://tailwindui.com/img/logos/workflow-mark.svg?color=indigo&shade=600" alt="" className="h-8 w-auto" />
-                </a>
+                <Link to="/" className="lg:hidden">
+                  <img src="https://res.cloudinary.com/di9gjsobh/image/upload/v1634804968/metronome_icon-icons.com_60037_uc309z.png" alt="" className="h-8 w-auto" />
+                </Link>
 
                 <div className="flex-1 flex items-center justify-end">
-                  <a href="/" className="hidden text-sm font-medium text-gray-700 hover:text-gray-800 lg:block">
-                    Search
-                  </a>
+                  <div className="hidden text-sm font-medium text-gray-700 hover:text-gray-800 lg:block">
+                    <div className="mt-1 relative rounded-md shadow-sm">
+                      <div className="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
+                        <SearchIcon className="h-5 w-5 text-gray-400" aria-hidden="true" />
+                      </div>
+                      <form onSubmit={handleSubmit}>
+                        <input
+                          type="text"
+                          name="search"
+                          onChange={(e) => {
+                            handleForm(e);
+                          }}
+                          id="search"
+                          className="focus:ring-indigo-500 focus:border-indigo-500 block w-full pl-10 sm:text-sm border-gray-300 rounded-md"
+                          placeholder="Busqueda..."
+                        />
+                      </form>
+                    </div>
+                  </div>
 
                   <div className="flex items-center lg:ml-8">
                     <div className="ml-4 flow-root lg:ml-8">
-                      <a href="/" className="group -m-2 p-2 flex items-center">
+                      <Link to="/cart" className="group -m-2 p-2 flex items-center">
                         <ShoppingBagIcon className="flex-shrink-0 h-6 w-6 text-gray-400 group-hover:text-gray-500" aria-hidden="true" />
                         <span className="ml-2 text-sm font-medium text-gray-700 group-hover:text-gray-800">0</span>
                         <span className="sr-only">items in cart, view bag</span>
-                      </a>
+                      </Link>
                     </div>
                     <div className="hidden lg:block">
                       <ProfileMenu />
