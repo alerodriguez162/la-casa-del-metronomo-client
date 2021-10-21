@@ -92,8 +92,17 @@ const UsersProvider = (props) => {
 
   const removeUser = async (dataForm) => {
     try {
-      await axiosClient.post("/api/Users/create", dataForm);
-      return getAllUsers();
+      await axiosClient.delete(`/user/delete/${dataForm.email}`);
+      getAllUsers();
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
+  const changeRole = async (user) => {
+    try {
+      await axiosClient.post(`/user/edit`, user);
+      getAllUsers();
     } catch (error) {
       console.log(error);
     }
@@ -113,6 +122,7 @@ const UsersProvider = (props) => {
         removeUser,
         checkToken,
         getCurrentUser,
+        changeRole,
       }}
     >
       {props.children}

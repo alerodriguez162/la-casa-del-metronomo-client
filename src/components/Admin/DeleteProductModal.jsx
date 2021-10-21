@@ -1,15 +1,15 @@
 import { Dialog, Transition } from "@headlessui/react";
 import { ExclamationIcon } from "@heroicons/react/outline";
 import { Fragment, useContext, useRef } from "react";
-import UsersContext from "../../Context/UsersContext/UsersContext";
-const DeleteUserModal = (props) => {
-  const { open, setOpen, person } = props;
+import ProductsContext from "../../Context/ProductsContext/ProductsContext";
+const DeleteProductModal = (props) => {
+  const { open, setOpen, product } = props;
   const cancelButtonRef = useRef(null);
-  const usersContext = useContext(UsersContext);
-  const { removeUser } = usersContext;
+  const productsCtx = useContext(ProductsContext);
+  const { removeProduct } = productsCtx;
 
   const handleDelete = () => {
-    removeUser(person);
+    removeProduct(product);
     setOpen(false);
   };
 
@@ -41,11 +41,11 @@ const DeleteUserModal = (props) => {
                 </div>
                 <div className="mt-3 text-center sm:mt-0 sm:ml-4 sm:text-left">
                   <Dialog.Title as="h3" className="text-lg leading-6 font-medium text-gray-900">
-                    Eliminar cuenta
+                    Eliminar producto
                   </Dialog.Title>
                   <div className="mt-2">
                     <p className="text-sm text-gray-500">
-                      ¿Estás seguro de que quieres eliminar esta cuenta? Todos sus datos serán eliminados permanentemente de nuestros servidores para siempre. Esta acción no se puede deshacer.
+                      ¿Estás seguro de que quieres eliminar este producto? Todos sus datos serán eliminados permanentemente de nuestros servidores para siempre. Esta acción no se puede deshacer.
                     </p>
                   </div>
                 </div>
@@ -75,4 +75,4 @@ const DeleteUserModal = (props) => {
   );
 };
 
-export default DeleteUserModal;
+export default DeleteProductModal;

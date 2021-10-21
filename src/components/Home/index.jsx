@@ -1,59 +1,51 @@
 import React from "react";
-const collections = [
-  {
-    name: "Women's",
-    href: "#",
-    imageSrc: "https://tailwindui.com/img/ecommerce-images/home-page-04-collection-01.jpg",
-    imageAlt: "Woman wearing a comfortable cotton t-shirt.",
-  },
-  {
-    name: "Men's",
-    href: "#",
-    imageSrc: "https://tailwindui.com/img/ecommerce-images/home-page-04-collection-02.jpg",
-    imageAlt: "Man wearing a comfortable and casual cotton t-shirt.",
-  },
-  {
-    name: "Desk Accessories",
-    href: "#",
-    imageSrc: "https://tailwindui.com/img/ecommerce-images/home-page-04-collection-03.jpg",
-    imageAlt: "Person sitting at a wooden desk with paper note organizer, pencil and tablet.",
-  },
-];
-const trendingProducts = [
-  {
-    id: 1,
-    name: "Leather Long Wallet",
-    color: "Natural",
-    price: "$75",
-    href: "#",
-    imageSrc: "https://tailwindui.com/img/ecommerce-images/home-page-04-trending-product-02.jpg",
-    imageAlt: "Hand stitched, orange leather long wallet.",
-  },
-  // More products...
-];
+import { Link } from "react-router-dom";
+import FeaturedProducts from "./FeaturedProducts";
+
 const perks = [
   {
     name: "Free returns",
     imageUrl: "https://tailwindui.com/img/ecommerce/icons/icon-returns-light.svg",
-    description: "Not what you expected? Place it back in the parcel and attach the pre-paid postage stamp.",
+    description: "¿No es lo que esperaba? Vuelva a introducirlo en el paquete y adjunte el sello de correos prepagado.",
   },
   {
-    name: "Same day delivery",
+    name: "Envío a domicilio",
     imageUrl: "https://tailwindui.com/img/ecommerce/icons/icon-calendar-light.svg",
-    description: "We offer a delivery service that has never been done before. Checkout today and receive your products within hours.",
+    description: "Recibe en la hora y fecha más conveniente para ti.",
   },
   {
-    name: "All year discount",
+    name: "Descuento todo el año",
     imageUrl: "https://tailwindui.com/img/ecommerce/icons/icon-gift-card-light.svg",
-    description: 'Looking for a deal? You can use the code "ALLYEAR" at checkout and get money off all year round.',
+    description: "¿Buscas una oferta? Te haremos llegar ofertas personalizadas",
   },
   {
-    name: "For the planet",
+    name: "Por el planeta",
     imageUrl: "https://tailwindui.com/img/ecommerce/icons/icon-planet-light.svg",
-    description: "We’ve pledged 1% of sales to the preservation and restoration of the natural environment.",
+    description: "Nos hemos comprometido a destinar el 1% de las ventas a la preservación y restauración del entorno natural.",
   },
 ];
 const Home = () => {
+  const collections = [
+    {
+      name: "Instrumentos",
+      href: "#",
+      imageSrc: "http://www.blog.musicacreativa.com/wp-content/uploads/venta-instrumentos-musicales_web-1-1100x733.jpg",
+      imageAlt: "Woman wearing a comfortable cotton t-shirt.",
+    },
+    {
+      name: "Accesorios",
+      href: "#",
+      imageSrc: "https://ae01.alicdn.com/kf/H66b268d6406e4faaa747ce013d63d142J.jpg?width=892&height=892&hash=1784",
+      imageAlt: "Man wearing a comfortable and casual cotton t-shirt.",
+    },
+    {
+      name: "Cuerdas",
+      href: "#",
+      imageSrc: "https://guitarriego.com/wp-content/uploads/2020/07/Cuerdas-guitarra-electrica-acustica-Daddario-Rotosound-Elixir-Ernie-Ball-Dunlop-GHS-DR-Optima-Fender-Guitarriego-1024x435.jpg",
+      imageAlt: "Person sitting at a wooden desk with paper note organizer, pencil and tablet.",
+    },
+  ];
+
   return (
     <main>
       {/* Hero section */}
@@ -62,7 +54,11 @@ const Home = () => {
         <div aria-hidden="true" className="hidden absolute inset-0 sm:flex sm:flex-col">
           <div className="flex-1 relative w-full bg-gray-800">
             <div className="absolute inset-0 overflow-hidden">
-              <img src="https://tailwindui.com/img/ecommerce-images/home-page-04-hero-full-width.jpg" alt="" className="w-full h-full object-center object-cover" />
+              <img
+                src="https://res.cloudinary.com/di9gjsobh/image/upload/v1634803400/wallpapertip_musical-instruments-wallpaper_246618_jayaph.jpg"
+                alt=""
+                className="w-full h-full object-center object-cover"
+              />
             </div>
             <div className="absolute inset-0 bg-gray-900 opacity-50" />
           </div>
@@ -74,18 +70,22 @@ const Home = () => {
           <div aria-hidden="true" className="absolute inset-0 flex flex-col sm:hidden">
             <div className="flex-1 relative w-full bg-gray-800">
               <div className="absolute inset-0 overflow-hidden">
-                <img src="https://tailwindui.com/img/ecommerce-images/home-page-04-hero-full-width.jpg" alt="" className="w-full h-full object-center object-cover" />
+                <img
+                  src="https://res.cloudinary.com/di9gjsobh/image/upload/v1634803400/wallpapertip_musical-instruments-wallpaper_246618_jayaph.jpg"
+                  alt=""
+                  className="w-full h-full object-center object-cover"
+                />
               </div>
               <div className="absolute inset-0 bg-gray-900 opacity-50" />
             </div>
             <div className="w-full bg-white h-48" />
           </div>
           <div className="relative py-32">
-            <h1 className="text-4xl font-extrabold tracking-tight text-white sm:text-5xl md:text-6xl">Mid-Season Sale</h1>
+            <h1 className="text-4xl font-extrabold tracking-tight text-white sm:text-5xl md:text-6xl">Venta De Fin De Año</h1>
             <div className="mt-4 sm:mt-6">
-              <a href="/" className="inline-block bg-indigo-600 border border-transparent rounded-md py-3 px-8 font-medium text-white hover:bg-indigo-700">
-                Shop Collection
-              </a>
+              <Link to="/products" className="inline-block bg-indigo-600 border border-transparent rounded-md py-3 px-8 font-medium text-white hover:bg-indigo-700">
+                Ver Tienda
+              </Link>
             </div>
           </div>
         </div>
@@ -106,9 +106,6 @@ const Home = () => {
                   </div>
                   <div className="absolute inset-0 rounded-lg p-6 flex items-end">
                     <div>
-                      <p aria-hidden="true" className="text-sm text-white">
-                        Shop the collection
-                      </p>
                       <h3 className="mt-1 font-semibold text-white">
                         <a href={collection.href}>
                           <span className="absolute inset-0" />
@@ -124,46 +121,11 @@ const Home = () => {
         </section>
       </div>
 
-      <section aria-labelledby="trending-heading">
-        <div className="max-w-7xl mx-auto py-24 px-4 sm:px-6 sm:py-32 lg:pt-32 lg:px-8">
-          <div className="md:flex md:items-center md:justify-between">
-            <h2 id="favorites-heading" className="text-2xl font-extrabold tracking-tight text-gray-900">
-              Trending Products
-            </h2>
-            <a href="/" className="hidden text-sm font-medium text-indigo-600 hover:text-indigo-500 md:block">
-              Shop the collection<span aria-hidden="true"> &rarr;</span>
-            </a>
-          </div>
-
-          <div className="mt-6 grid grid-cols-2 gap-x-4 gap-y-10 sm:gap-x-6 md:grid-cols-4 md:gap-y-0 lg:gap-x-8">
-            {trendingProducts.map((product) => (
-              <div key={product.id} className="group relative">
-                <div className="w-full h-56 rounded-md overflow-hidden group-hover:opacity-75 lg:h-72 xl:h-80">
-                  <img src={product.imageSrc} alt={product.imageAlt} className="w-full h-full object-center object-cover" />
-                </div>
-                <h3 className="mt-4 text-sm text-gray-700">
-                  <a href={product.href}>
-                    <span className="absolute inset-0" />
-                    {product.name}
-                  </a>
-                </h3>
-                <p className="mt-1 text-sm text-gray-500">{product.color}</p>
-                <p className="mt-1 text-sm font-medium text-gray-900">{product.price}</p>
-              </div>
-            ))}
-          </div>
-
-          <div className="mt-8 text-sm md:hidden">
-            <a href="/" className="font-medium text-indigo-600 hover:text-indigo-500">
-              Shop the collection<span aria-hidden="true"> &rarr;</span>
-            </a>
-          </div>
-        </div>
-      </section>
+      <FeaturedProducts />
 
       <section aria-labelledby="perks-heading" className="bg-gray-50 border-t border-gray-200">
         <h2 id="perks-heading" className="sr-only">
-          Our perks
+          Nuestros beneficios
         </h2>
 
         <div className="max-w-7xl mx-auto py-24 px-4 sm:px-6 sm:py-32 lg:px-8">

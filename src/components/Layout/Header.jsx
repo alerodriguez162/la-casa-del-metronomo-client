@@ -2,13 +2,14 @@
 import { Dialog, Popover, Tab, Transition } from "@headlessui/react";
 import { MenuIcon, SearchIcon, ShoppingBagIcon, XIcon } from "@heroicons/react/outline";
 import { Fragment, useState } from "react";
+import { Link } from "react-router-dom";
 import useAuth from "../../Hooks/isLoggedIn";
 import ProfileMenu from "./ProfileMenu";
 
 const navigation = {
   categories: [
     {
-      name: "Women",
+      name: "Instrumentos",
       featured: [
         {
           name: "New Arrivals",
@@ -37,7 +38,7 @@ const navigation = {
       ],
     },
     {
-      name: "Men",
+      name: "Accesorios",
       featured: [
         {
           name: "New Arrivals",
@@ -66,10 +67,7 @@ const navigation = {
       ],
     },
   ],
-  pages: [
-    { name: "Company", href: "#" },
-    { name: "Stores", href: "#" },
-  ],
+  pages: [{ name: "Empresa", href: "/who-whe-are" }],
 };
 
 function classNames(...classes) {
@@ -156,9 +154,9 @@ const Header = () => {
               <div className="border-t border-gray-200 py-6 px-4 space-y-6">
                 {navigation.pages.map((page) => (
                   <div key={page.name} className="flow-root">
-                    <a href={page.href} className="-m-2 p-2 block font-medium text-gray-900">
+                    <Link to={page.href} className="-m-2 p-2 block font-medium text-gray-900">
                       {page.name}
-                    </a>
+                    </Link>
                   </div>
                 ))}
               </div>
@@ -186,10 +184,9 @@ const Header = () => {
             <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
               <div className="h-16 flex items-center justify-between">
                 <div className="hidden lg:flex-1 lg:flex lg:items-center">
-                  <a href="/">
-                    <span className="sr-only">Workflow</span>
-                    <img className="h-8 w-auto" src="https://tailwindui.com/img/logos/workflow-mark.svg?color=indigo&shade=600" alt="" />
-                  </a>
+                  <Link to="/">
+                    <img className="h-10 w-auto" src="https://res.cloudinary.com/di9gjsobh/image/upload/v1634804968/metronome_icon-icons.com_60037_uc309z.png" alt="" />
+                  </Link>
                 </div>
 
                 <div className="hidden h-full lg:flex">
@@ -256,9 +253,9 @@ const Header = () => {
                       ))}
 
                       {navigation.pages.map((page) => (
-                        <a key={page.name} href={page.href} className="flex items-center text-sm font-medium text-gray-700 hover:text-gray-800">
+                        <Link key={page.name} to={page.href} className="flex items-center text-sm font-medium text-gray-700 hover:text-gray-800">
                           {page.name}
-                        </a>
+                        </Link>
                       ))}
                     </div>
                   </Popover.Group>
