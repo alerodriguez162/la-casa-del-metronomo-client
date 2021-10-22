@@ -1,48 +1,43 @@
 import React from "react";
-const products = [
-  {
-    id: 1,
-    name: "Basic Tee",
-    href: "#",
-    price: "$36.00",
-    color: "Charcoal",
-    size: "L",
-    imageSrc: "https://tailwindui.com/img/ecommerce-images/confirmation-page-06-product-01.jpg",
-    imageAlt: "Model wearing men's charcoal basic tee in large.",
-  },
-  // More products...
-];
+import { useLocation } from "react-router";
+import { Link } from "react-router-dom";
+
 const Summary = () => {
+  const location = useLocation();
+  const { summary } = location.state;
   return (
     <main className="bg-white relative lg:min-h-screen">
       <div className="h-80 overflow-hidden lg:absolute lg:w-1/2 lg:h-full lg:pr-4 xl:pr-12">
-        <img src="https://tailwindui.com/img/ecommerce-images/confirmation-page-06-hero.jpg" alt="TODO" className="h-full w-full object-center object-cover" />
+        <img
+          src="https://res.cloudinary.com/di9gjsobh/image/upload/v1634897665/electric-guitars-guitars-musical-instruments-equipment-music_wkxpwe.jpg"
+          alt="TODO"
+          className="h-full w-full object-center object-cover"
+        />
       </div>
 
       <div>
         <div className="max-w-2xl mx-auto py-16 px-4 sm:px-6 sm:py-24 lg:max-w-7xl lg:px-8 lg:py-32 lg:grid lg:grid-cols-2 lg:gap-x-8 xl:gap-x-24">
           <div className="lg:col-start-2">
-            <h1 className="text-sm font-medium text-indigo-600">Payment successful</h1>
-            <p className="mt-2 text-4xl font-extrabold tracking-tight text-gray-900 sm:text-5xl">Thanks for ordering</p>
-            <p className="mt-2 text-base text-gray-500">We appreciate your order, we’re currently processing it. So hang tight and we’ll send you confirmation very soon!</p>
+            <h1 className="text-sm font-medium text-indigo-600">Pago exitoso</h1>
+            <p className="mt-2 text-4xl font-extrabold tracking-tight text-gray-900 sm:text-5xl">Gracias por ordenar</p>
+            <p className="mt-2 text-base text-gray-500">Agradecemos tu pedido, actualmente lo estamos procesando. ¡Así que espere y le enviaremos la confirmación muy pronto!</p>
 
             <dl className="mt-16 text-sm font-medium">
-              <dt className="text-gray-900">Tracking number</dt>
-              <dd className="mt-2 text-indigo-600">51547878755545848512</dd>
+              <dt className="text-gray-900">Número de seguimiento</dt>
+              <dd className="mt-2 text-indigo-600">{summary.charge.id}</dd>
             </dl>
 
             <ul className="mt-6 text-sm font-medium text-gray-500 border-t border-gray-200 divide-y divide-gray-200">
-              {products.map((product) => (
-                <li key={product.id} className="flex py-6 space-x-6">
-                  <img src={product.imageSrc} alt={product.imageAlt} className="flex-none w-24 h-24 bg-gray-100 rounded-md object-center object-cover" />
+              {summary.products.map((product) => (
+                <li key={product.product._id} className="flex py-6 space-x-6">
+                  <img src={product.product.image[0]} alt={product.product.image[0]} className="flex-none w-24 h-24 bg-gray-100 rounded-md object-center object-cover" />
                   <div className="flex-auto space-y-1">
-                    <h3 className="text-gray-900">
-                      <a href={product.href}>{product.name}</a>
+                    <h3 className="text-gray-900 w-96 truncate">
+                      <Link to={{ pathname: `/product/${product._id}`, state: { product: product.product } }}>{product.product.title}</Link>
                     </h3>
-                    <p>{product.color}</p>
-                    <p>{product.size}</p>
+                    <p className="w-96 truncate">{product.product.description}</p>
                   </div>
-                  <p className="flex-none font-medium text-gray-900">{product.price}</p>
+                  <p className="flex-none font-medium text-gray-900">${product.product.price}</p>
                 </li>
               ))}
             </ul>
@@ -50,38 +45,38 @@ const Summary = () => {
             <dl className="text-sm font-medium text-gray-500 space-y-6 border-t border-gray-200 pt-6">
               <div className="flex justify-between">
                 <dt>Subtotal</dt>
-                <dd className="text-gray-900">$72.00</dd>
+                <dd className="text-gray-900">${summary.total}</dd>
               </div>
 
               <div className="flex justify-between">
-                <dt>Shipping</dt>
-                <dd className="text-gray-900">$8.00</dd>
+                <dt>Envio</dt>
+                <dd className="text-gray-900">$0.00</dd>
               </div>
 
               <div className="flex justify-between">
-                <dt>Taxes</dt>
-                <dd className="text-gray-900">$6.40</dd>
+                <dt>Tarifas</dt>
+                <dd className="text-gray-900">$0.00</dd>
               </div>
 
               <div className="flex items-center justify-between border-t border-gray-200 text-gray-900 pt-6">
                 <dt className="text-base">Total</dt>
-                <dd className="text-base">$86.40</dd>
+                <dd className="text-base">${summary.total}</dd>
               </div>
             </dl>
 
             <dl className="mt-16 grid grid-cols-2 gap-x-4 text-sm text-gray-600">
               <div>
-                <dt className="font-medium text-gray-900">Shipping Address</dt>
+                <dt className="font-medium text-gray-900">Direccion de envio</dt>
                 <dd className="mt-2">
                   <address className="not-italic">
-                    <span className="block">Kristin Watson</span>
-                    <span className="block">7363 Cynthia Pass</span>
-                    <span className="block">Toronto, ON N3Y 4H8</span>
+                    <span className="block">{summary.cart.address}</span>
+                    <span className="block">{summary.cart.state}</span>
+                    <span className="block">Mexico</span>
                   </address>
                 </dd>
               </div>
               <div>
-                <dt className="font-medium text-gray-900">Payment Information</dt>
+                <dt className="font-medium text-gray-900">Informacion de pago</dt>
                 <dd className="mt-2 space-y-2 sm:flex sm:space-y-0 sm:space-x-4">
                   <div className="flex-none">
                     <svg aria-hidden="true" width={36} height={24} viewBox="0 0 36 24" xmlns="http://www.w3.org/2000/svg" className="h-6 w-auto">
@@ -94,17 +89,19 @@ const Summary = () => {
                     <p className="sr-only">Visa</p>
                   </div>
                   <div className="flex-auto">
-                    <p className="text-gray-900">Ending with 4242</p>
-                    <p>Expires 12 / 21</p>
+                    <p className="text-gray-900">Terminacion en {summary.charge.payment_method_details.card.last4}</p>
+                    <p>
+                      Expiracion {summary.charge.payment_method_details.card.exp_month}/{summary.charge.payment_method_details.card.exp_year}
+                    </p>
                   </div>
                 </dd>
               </div>
             </dl>
 
             <div className="mt-16 border-t border-gray-200 py-6 text-right">
-              <a href="/" className="text-sm font-medium text-indigo-600 hover:text-indigo-500">
-                Continue Shopping<span aria-hidden="true"> &rarr;</span>
-              </a>
+              <Link to="/products" className="text-sm font-medium text-indigo-600 hover:text-indigo-500">
+                Continuar comprando<span aria-hidden="true"> &rarr;</span>
+              </Link>
             </div>
           </div>
         </div>

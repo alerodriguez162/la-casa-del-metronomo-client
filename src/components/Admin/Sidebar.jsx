@@ -1,7 +1,7 @@
 import { Dialog, Transition } from "@headlessui/react";
 import { FolderIcon, InboxIcon, UsersIcon, XIcon } from "@heroicons/react/outline";
 import { Fragment } from "react";
-import { NavLink } from "react-router-dom";
+import { Link, NavLink } from "react-router-dom";
 const navigation = [
   { name: "Users", href: "/admin/users", icon: UsersIcon, current: false },
   { name: "Categories", href: "/admin/categories", icon: FolderIcon, current: false },
@@ -47,7 +47,10 @@ const Sidebar = (props) => {
                 </div>
               </Transition.Child>
               <div className="flex-shrink-0 flex items-center px-4">
-                <img className="h-8 w-auto" src="https://tailwindui.com/img/logos/workflow-logo-indigo-300-mark-white-text.svg" alt="Workflow" />
+                <Link to="/">
+                  {" "}
+                  <img className="h-8 w-auto" src="https://res.cloudinary.com/di9gjsobh/image/upload/v1634804968/metronome_icon-icons.com_60037_uc309z.png" alt="Workflow" />{" "}
+                </Link>
               </div>
               <div className="mt-5 flex-1 h-0 overflow-y-auto">
                 <nav className="px-2 space-y-1">
@@ -79,7 +82,10 @@ const Sidebar = (props) => {
           {/* Sidebar component, swap this element with another sidebar if you like */}
           <div className="flex flex-col flex-grow pt-5 pb-4 overflow-y-auto">
             <div className="flex items-center flex-shrink-0 px-4">
-              <img className="h-8 w-auto" src="https://tailwindui.com/img/logos/workflow-logo-indigo-300-mark-white-text.svg" alt="Workflow" />
+              <Link to="/">
+                {" "}
+                <img className="h-8 w-auto" src="https://res.cloudinary.com/di9gjsobh/image/upload/v1634804968/metronome_icon-icons.com_60037_uc309z.png" alt="Workflow" />
+              </Link>
             </div>
             <div className="mt-5 flex-1 flex flex-col">
               <nav className="flex-1 px-2 space-y-1">

@@ -36,7 +36,7 @@ const FeaturedProducts = () => {
                   {product.title}
                 </Link>
               </h3>
-              <p className="mt-1 text-sm text-gray-500">{product.description}</p>
+              <p className="mt-1 text-sm text-gray-500 h-50 truncate">{product.description}</p>
               <p className="mt-1 text-sm font-medium text-gray-900">${product.price}</p>
             </div>
           ))}

@@ -10,7 +10,7 @@ const ProfileMenu = () => {
 
   if (!currentUser)
     return (
-      <Link to="/login" className="ml-12 p-2 block font-medium text-gray-900">
+      <Link to="/login" className="ml-5 p-2 block font-medium text-gray-900">
         Iniciar sesion
       </Link>
     );
@@ -21,7 +21,7 @@ const ProfileMenu = () => {
         <div>
           <Menu.Button className="max-w-xs bg-white flex items-center text-sm rounded-full focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500">
             <span className="sr-only">Open user menu</span>
-            <img className="h-8 w-8 rounded-full" src={currentUser.picture} alt="" />
+            <img className="h-8 w-8 rounded-full object-contain" src={currentUser.picture} alt="" />
           </Menu.Button>
         </div>
         <Transition
@@ -35,8 +35,8 @@ const ProfileMenu = () => {
         >
           <Menu.Items className="origin-top-right absolute z-10 right-0 mt-2 w-48 rounded-md shadow-lg py-1 bg-white ring-1 ring-black ring-opacity-5 focus:outline-none">
             <Menu.Item>
-              <NavLink to="/profile" activeClassName="bg-gray-100" className="block px-4 py-2 text-sm text-gray-700">
-                Mi perfil
+              <NavLink to="/orders" activeClassName="bg-gray-100" className="block px-4 py-2 text-sm text-gray-700">
+                Historial de ordenes
               </NavLink>
             </Menu.Item>
             {currentUser.roles === "admin" && (

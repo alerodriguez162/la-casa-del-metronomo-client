@@ -62,9 +62,9 @@ const Products = () => {
                             <td className="px-6 py-4 whitespace-nowrap">
                               <div className="flex items-center">
                                 <div className="flex-shrink-0 h-10 w-10">
-                                  <img className="h-10 w-10 rounded-full" src={product.image[0]} alt="" />
+                                  <img className="h-10 w-10 rounded-full object-contain" src={product.image[0]} alt="" />
                                 </div>
-                                <div className="ml-4">{product.title}</div>
+                                <div className="ml-4 truncate w-60">{product.title}</div>
                               </div>
                             </td>
                             <td className="px-6 py-4 whitespace-nowrap">

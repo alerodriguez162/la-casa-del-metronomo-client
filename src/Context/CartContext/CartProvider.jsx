@@ -1,4 +1,5 @@
 import React, { useReducer } from "react";
+import { toast } from "react-toastify";
 import axiosClient from "../../Config/axios";
 import CartContext from "./CartContext";
 import CartReducer from "./CartReducer";
@@ -13,9 +14,26 @@ const CartProvider = (props) => {
   const addToCart = async (product) => {
     try {
       await axiosClient.post("/cart/add", product);
+      toast.success("Producto agregado con exito", {
+        position: "bottom-center",
+        autoClose: 5000,
+        hideProgressBar: false,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true,
+        progress: undefined,
+      });
       getCart();
     } catch (error) {
-      console.log(error);
+      toast.error("Ha ocurrido un error, intente nuevamente", {
+        position: "bottom-center",
+        autoClose: 5000,
+        hideProgressBar: false,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true,
+        progress: undefined,
+      });
     }
   };
 
@@ -24,16 +42,41 @@ const CartProvider = (props) => {
       await axiosClient.delete("/cart/delete");
       getCart();
     } catch (error) {
-      console.log(error);
+      toast.error("Ha ocurrido un error, intente nuevamente", {
+        position: "bottom-center",
+        autoClose: 5000,
+        hideProgressBar: false,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true,
+        progress: undefined,
+      });
     }
   };
 
   const removeToCart = async (product) => {
     try {
       await axiosClient.post("/cart/remove", product);
+      toast.success("Producto eliminado con exito", {
+        position: "bottom-center",
+        autoClose: 5000,
+        hideProgressBar: false,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true,
+        progress: undefined,
+      });
       getCart();
     } catch (error) {
-      console.log(error);
+      toast.error("Ha ocurrido un error, intente nuevamente", {
+        position: "bottom-center",
+        autoClose: 5000,
+        hideProgressBar: false,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true,
+        progress: undefined,
+      });
     }
   };
 
@@ -45,16 +88,33 @@ const CartProvider = (props) => {
         payload: res.data,
       });
     } catch (error) {
-      console.log(error);
+      toast.error("Ha ocurrido un error, intente nuevamente", {
+        position: "bottom-center",
+        autoClose: 5000,
+        hideProgressBar: false,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true,
+        progress: undefined,
+      });
     }
   };
 
   const submitCheckout = async (formData) => {
     try {
       const res = await axiosClient.post("/checkout", formData);
+      clearCart();
       return res.data;
     } catch (error) {
-      console.log(error);
+      toast.error("Ha ocurrido un error, intente nuevamente", {
+        position: "bottom-center",
+        autoClose: 5000,
+        hideProgressBar: false,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true,
+        progress: undefined,
+      });
     }
   };
 

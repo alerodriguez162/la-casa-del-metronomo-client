@@ -1,8 +1,10 @@
 import axios from "axios";
 import React, { useReducer } from "react";
+import { toast } from "react-toastify";
 import axiosClient from "../../Config/axios";
 import ProductsContext from "./ProductsContext";
 import ProductsReducer from "./ProductsReducer";
+
 const ProductsProvider = (props) => {
   const initialState = {
     products: [],
@@ -15,18 +17,52 @@ const ProductsProvider = (props) => {
   const createCategory = async (data) => {
     try {
       await axiosClient.post("/categories/create", data);
+      toast.success("Categoria generada con exito", {
+        position: "bottom-center",
+        autoClose: 5000,
+        hideProgressBar: false,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true,
+        progress: undefined,
+      });
       allCategories();
     } catch (error) {
-      console.log(error.message);
+      toast.error("Ha ocurrido un error, intente nuevamente", {
+        position: "bottom-center",
+        autoClose: 5000,
+        hideProgressBar: false,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true,
+        progress: undefined,
+      });
     }
   };
 
   const deleteCategory = async (id) => {
     try {
       await axiosClient.delete(`/categories/delete/${id}`);
+      toast.success("Categoria eliminada con exito", {
+        position: "bottom-center",
+        autoClose: 5000,
+        hideProgressBar: false,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true,
+        progress: undefined,
+      });
       allCategories();
     } catch (error) {
-      console.log(error.message);
+      toast.error("Ha ocurrido un error, intente nuevamente", {
+        position: "bottom-center",
+        autoClose: 5000,
+        hideProgressBar: false,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true,
+        progress: undefined,
+      });
     }
   };
 
@@ -38,7 +74,15 @@ const ProductsProvider = (props) => {
         payload: res.data,
       });
     } catch (error) {
-      console.log(error.message);
+      toast.error("Ha ocurrido un error, intente nuevamente", {
+        position: "bottom-center",
+        autoClose: 5000,
+        hideProgressBar: false,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true,
+        progress: undefined,
+      });
     }
   };
 
@@ -52,7 +96,15 @@ const ProductsProvider = (props) => {
         payload: res.data.products,
       });
     } catch (error) {
-      console.log(error.message);
+      toast.error("Ha ocurrido un error, intente nuevamente", {
+        position: "bottom-center",
+        autoClose: 5000,
+        hideProgressBar: false,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true,
+        progress: undefined,
+      });
     }
   };
 
@@ -65,16 +117,41 @@ const ProductsProvider = (props) => {
         payload: res.data.products,
       });
     } catch (error) {
-      console.log(error.message);
+      toast.error("Ha ocurrido un error, intente nuevamente", {
+        position: "bottom-center",
+        autoClose: 5000,
+        hideProgressBar: false,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true,
+        progress: undefined,
+      });
     }
   };
 
   const createProduct = async (data) => {
     try {
       await axiosClient.post(`/pdp/create`, data);
+      toast.success("Producto creado con exito", {
+        position: "bottom-center",
+        autoClose: 5000,
+        hideProgressBar: false,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true,
+        progress: undefined,
+      });
       allProducts();
     } catch (error) {
-      console.log(error.message);
+      toast.error("Ha ocurrido un error, intente nuevamente", {
+        position: "bottom-center",
+        autoClose: 5000,
+        hideProgressBar: false,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true,
+        progress: undefined,
+      });
     }
   };
 
@@ -86,16 +163,41 @@ const ProductsProvider = (props) => {
       const res = await axios.post(process.env.REACT_APP_CLOUDINARY_URL, data);
       return res.data.secure_url;
     } catch (error) {
-      console.log(error.message);
+      toast.error("Ha ocurrido un error, intente nuevamente", {
+        position: "bottom-center",
+        autoClose: 5000,
+        hideProgressBar: false,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true,
+        progress: undefined,
+      });
     }
   };
 
   const removeProduct = async (product) => {
     try {
       await axiosClient.delete(`/pdp/delete/${product._id}`);
+      toast.success("Producto eliminado con exito", {
+        position: "bottom-center",
+        autoClose: 5000,
+        hideProgressBar: false,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true,
+        progress: undefined,
+      });
       allProducts();
     } catch (error) {
-      console.log(error.message);
+      toast.error("Ha ocurrido un error, intente nuevamente", {
+        position: "bottom-center",
+        autoClose: 5000,
+        hideProgressBar: false,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true,
+        progress: undefined,
+      });
     }
   };
 

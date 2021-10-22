@@ -41,7 +41,7 @@ const Cart = () => {
                             </h4>
                             <p className="ml-4 text-sm font-medium text-gray-900">${product.product.price}</p>
                           </div>
-                          <p className="mt-1 text-sm text-gray-500">{product.product.description}</p>
+                          <p className="mt-1 text-sm text-gray-500 w-96 truncate">{product.product.description}</p>
                         </div>
 
                         <div className="mt-4 flex-1 flex items-end justify-between">

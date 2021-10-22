@@ -1,8 +1,10 @@
 import { Elements } from "@stripe/react-stripe-js";
 import { loadStripe } from "@stripe/stripe-js";
-import NotificationContainer from "react-notifications/lib/NotificationContainer";
 import { Route, Switch, withRouter } from "react-router-dom";
+import { ToastContainer } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 import "./App.css";
+import ErrorPage from "./components/404";
 import Login from "./components/Auth/Login";
 import SignUp from "./components/Auth/SignUp";
 import Cart from "./components/Cart";
@@ -16,6 +18,7 @@ import Footer from "./components/Layout/Footer";
 import Header from "./components/Layout/Header";
 import PDP from "./components/PDP";
 import PLP from "./components/PLP";
+import OrderHistory from "./components/Profile/OrderHistory";
 import CartProvider from "./Context/CartContext/CartProvider";
 import ProductsProvider from "./Context/ProductsContext/ProductsProvider";
 import UsersProvider from "./Context/UsersContext/UsersProvider";
@@ -32,7 +35,7 @@ function App({ location }) {
         <CartProvider>
           <ProductsProvider>
             <UsersProvider>
-              {location.pathname.includes("admin") || location.pathname.includes("login") ? null : <Header />}
+              {location.pathname.includes("admin") || location.pathname.includes("login") || location.pathname.includes("register") ? null : <Header />}
 
               <Switch>
                 <AuthRoute exact path="/login" component={Login} />
@@ -48,13 +51,15 @@ function App({ location }) {
                 <PrivateRoute exact path="/checkout" component={Checkout} />
                 <PrivateRoute exact path="/checkout/summary" component={Summary} />
 
+                <PrivateRoute exact path="/orders" component={OrderHistory} />
+
                 <AdminRoute path="/admin" />
 
                 <Route exact path="/who-whe-are" component={WhoWheAre} />
 
                 <Route exact path="/terms-conditions" component={TermsAndConditions} />
                 <Route exact path="/privacy" component={Privacy} />
-
+                <Route path="*" component={ErrorPage} />
                 {/* <Route
             path="/admin"
             render={(props) => {
@@ -70,8 +75,8 @@ function App({ location }) {
             }}
           /> */}
               </Switch>
-              <NotificationContainer />
-              {location.pathname.includes("admin") || location.pathname.includes("login") ? null : <Footer />}
+              <ToastContainer position="bottom-center" autoClose={5000} hideProgressBar={false} newestOnTop={false} closeOnClick rtl={false} pauseOnFocusLoss draggable pauseOnHover />
+              {location.pathname.includes("admin") || location.pathname.includes("login") || location.pathname.includes("register") ? null : <Footer />}
             </UsersProvider>
           </ProductsProvider>
         </CartProvider>

@@ -87,8 +87,10 @@ const Header = () => {
   const { getCart, cart } = useContext(CartContext);
 
   useEffect(() => {
-    if (!Object.keys(cart).length) getCart();
-  }, [cart]);
+    if (isLoggedIn) {
+      if (!Object.keys(cart).length) getCart();
+    }
+  }, [cart, isLoggedIn]);
 
   const handleForm = (event) => {
     event.preventDefault();

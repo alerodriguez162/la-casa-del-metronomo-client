@@ -1,4 +1,5 @@
 import React, { useReducer } from "react";
+import { toast } from "react-toastify";
 import axiosClient from "../../Config/axios";
 import UsersContext from "./UsersContext";
 import UsersReducer from "./UsersReducer";
@@ -30,14 +31,22 @@ const UsersProvider = (props) => {
       });
       return true;
     } catch (error) {
-      console.log(error);
+      toast.error("Ha ocurrido un error, intente nuevamente", {
+        position: "bottom-center",
+        autoClose: 5000,
+        hideProgressBar: false,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true,
+        progress: undefined,
+      });
       return false;
     }
   };
 
-  const register = async () => {
+  const register = async (formData) => {
     try {
-      const res = await axiosClient.get("/auth/login");
+      const res = await axiosClient.post("/user/create", formData);
 
       const token = res.data.token;
 
@@ -45,9 +54,26 @@ const UsersProvider = (props) => {
         type: "SET_TOKEN_USER",
         payload: token,
       });
+      toast.success("Usuario registrado con exito", {
+        position: "bottom-center",
+        autoClose: 5000,
+        hideProgressBar: false,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true,
+        progress: undefined,
+      });
       getCurrentUser();
     } catch (error) {
-      console.log(error);
+      toast.error("Ha ocurrido un error, intente nuevamente", {
+        position: "bottom-center",
+        autoClose: 5000,
+        hideProgressBar: false,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true,
+        progress: undefined,
+      });
     }
   };
 
@@ -71,7 +97,15 @@ const UsersProvider = (props) => {
         payload: user,
       });
     } catch (error) {
-      console.log(error);
+      toast.error("Ha ocurrido un error, intente nuevamente", {
+        position: "bottom-center",
+        autoClose: 5000,
+        hideProgressBar: false,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true,
+        progress: undefined,
+      });
     }
   };
 
@@ -86,7 +120,15 @@ const UsersProvider = (props) => {
         payload: UsersFromDB,
       });
     } catch (error) {
-      console.log(error);
+      toast.error("Ha ocurrido un error, intente nuevamente", {
+        position: "bottom-center",
+        autoClose: 5000,
+        hideProgressBar: false,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true,
+        progress: undefined,
+      });
     }
   };
 
@@ -94,17 +136,51 @@ const UsersProvider = (props) => {
     try {
       await axiosClient.delete(`/user/delete/${dataForm.email}`);
       getAllUsers();
+      toast.success("Usuario eliminado con exito", {
+        position: "bottom-center",
+        autoClose: 5000,
+        hideProgressBar: false,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true,
+        progress: undefined,
+      });
     } catch (error) {
-      console.log(error);
+      toast.error("Ha ocurrido un error, intente nuevamente", {
+        position: "bottom-center",
+        autoClose: 5000,
+        hideProgressBar: false,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true,
+        progress: undefined,
+      });
     }
   };
 
   const changeRole = async (user) => {
     try {
       await axiosClient.post(`/user/edit`, user);
+      toast.success("Rol cambiado", {
+        position: "bottom-center",
+        autoClose: 5000,
+        hideProgressBar: false,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true,
+        progress: undefined,
+      });
       getAllUsers();
     } catch (error) {
-      console.log(error);
+      toast.error("Ha ocurrido un error, intente nuevamente", {
+        position: "bottom-center",
+        autoClose: 5000,
+        hideProgressBar: false,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true,
+        progress: undefined,
+      });
     }
   };
 

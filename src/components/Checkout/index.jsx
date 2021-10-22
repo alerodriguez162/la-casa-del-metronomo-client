@@ -68,7 +68,10 @@ const Checkout = () => {
         const { token } = await stripe.createToken(cardNumber);
         const formData = { ...values, stripeToken: token.id };
         const result = await submitCheckout(formData);
-        console.log(result);
+        history.push({
+          pathname: "/checkout/summary",
+          state: { summary: result },
+        });
       } catch (err) {
         console.log(err);
       }
@@ -315,12 +318,12 @@ const Checkout = () => {
                       <div className="ml-6 flex-1 flex flex-col">
                         <div className="flex">
                           <div className="min-w-0 flex-1">
-                            <h4 className="text-sm">
-                              <Link to={{ pathname: `/product/${product._id}`, state: { product: product.product } }} className="font-medium text-gray-700 hover:text-gray-800">
-                                {product.product.title}
+                            <h4 className="text-sm w-96  truncate ">
+                              <Link to={{ pathname: `/product/${product._id}`, state: { product: product.product } }}>
+                                <span className="font-medium text-gray-700 hover:text-gray-800 ">{product.product.title}</span>
                               </Link>
                             </h4>
-                            <p className="mt-1 text-sm text-gray-500">{product.product.description}</p>
+                            <p className="mt-1 text-sm text-gray-500 w-96 truncate">{product.product.description}</p>
                           </div>
 
                           <div className="ml-4 flex-shrink-0 flow-root">

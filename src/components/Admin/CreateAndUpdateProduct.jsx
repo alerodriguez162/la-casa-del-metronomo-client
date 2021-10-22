@@ -17,7 +17,7 @@ const CreateAndUpdateProduct = (props) => {
 
   const { categories, allCategories, createProduct, uploadImage } = productsCtx;
 
-  const [inputFields, setInputFields] = useState([{ specificationName: "", specificationList: ["", ""] }]);
+  const [inputFields, setInputFields] = useState([{ specificationName: "", specificationList: [""] }]);
 
   const [newProduct, setNewProduct] = useState({
     specifications: [],
@@ -36,7 +36,7 @@ const CreateAndUpdateProduct = (props) => {
   const { open, setOpen, create } = props;
 
   const addNewField = () => {
-    setInputFields([...inputFields, { specificationName: "", specificationList: [{ value: "" }, { value: "" }] }]);
+    setInputFields([...inputFields, { specificationName: "", specificationList: [""] }]);
   };
 
   const addNewFieldList = (i) => {
@@ -111,7 +111,7 @@ const CreateAndUpdateProduct = (props) => {
       categories: [],
     });
     setFiles([]);
-    setInputFields([{ specificationName: "", specificationList: ["", ""] }]);
+    setInputFields([{ specificationName: "", specificationList: [""] }]);
     setOpen(false);
   };
 

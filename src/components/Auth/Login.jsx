@@ -1,5 +1,6 @@
 import { useFormik } from "formik";
 import React, { useContext } from "react";
+import { Link } from "react-router-dom";
 import UsersContext from "../../Context/UsersContext/UsersContext";
 import validate from "../../Utils/Validate";
 const Login = (props) => {
@@ -20,7 +21,7 @@ const Login = (props) => {
       <div className="flex-1 flex flex-col justify-center py-12 px-4 sm:px-6 lg:flex-none lg:px-20 xl:px-24">
         <div className="mx-auto w-full max-w-sm lg:w-96">
           <div>
-            <img className="h-12 w-auto" src="https://tailwindui.com/img/logos/workflow-mark-indigo-600.svg" alt="Workflow" />
+            <img className="h-12 w-auto" src="https://res.cloudinary.com/di9gjsobh/image/upload/v1634804968/metronome_icon-icons.com_60037_uc309z.png" alt="Workflow" />
             <h2 className="mt-6 text-3xl font-extrabold text-gray-900">Ingresa a tu cuenta</h2>
           </div>
 
@@ -115,20 +116,20 @@ const Login = (props) => {
                   </div>
                 </div>
 
-                {/* <div className="flex items-center justify-between">
-                  <div className="flex items-center">
+                <div className="flex items-center justify-end">
+                  {/* <div className="flex items-center">
                     <input id="remember-me" name="remember-me" type="checkbox" className="h-4 w-4 text-indigo-600 focus:ring-indigo-500 border-gray-300 rounded" />
                     <label htmlFor="remember-me" className="ml-2 block text-sm text-gray-900">
                       Remember me
                     </label>
-                  </div>
+                  </div> */}
 
                   <div className="text-sm">
-                    <a href="#" className="font-medium text-indigo-600 hover:text-indigo-500">
-                      Forgot your password?
-                    </a>
+                    <Link to="/register" className="font-medium text-indigo-600 hover:text-indigo-500">
+                      Registrate
+                    </Link>
                   </div>
-                </div> */}
+                </div>
 
                 <div>
                   <button
@@ -144,11 +145,7 @@ const Login = (props) => {
         </div>
       </div>
       <div className="hidden lg:block relative w-0 flex-1">
-        <img
-          className="absolute inset-0 h-full w-full object-cover"
-          src="https://images.unsplash.com/photo-1505904267569-f02eaeb45a4c?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=1908&q=80"
-          alt=""
-        />
+        <img className="absolute inset-0 h-full w-full object-cover" src="https://images.alphacoders.com/109/1090851.jpg" alt="" />
       </div>
     </div>
   );
