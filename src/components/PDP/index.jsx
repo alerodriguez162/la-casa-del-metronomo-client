@@ -1,8 +1,10 @@
+/* eslint-disable react-hooks/exhaustive-deps */
 /* eslint-disable no-unused-vars */
-import { Disclosure, Tab } from "@headlessui/react";
-import { HeartIcon, MinusSmIcon, PlusSmIcon } from "@heroicons/react/outline";
-import { StarIcon } from "@heroicons/react/solid";
-import { useState } from "react";
+import { Disclosure, Listbox, Tab, Transition } from "@headlessui/react";
+import { MinusSmIcon, PlusSmIcon } from "@heroicons/react/outline";
+import { CheckIcon, SelectorIcon } from "@heroicons/react/solid";
+import { Fragment, useContext, useEffect, useState } from "react";
+import CartContext from "../../Context/CartContext/CartContext";
 import FeaturedProducts from "../Home/FeaturedProducts";
 
 const relatedProducts = [
@@ -23,6 +25,14 @@ function classNames(...classes) {
 }
 const PDP = (props) => {
   const [product, setProduct] = useState(props.location.state.product);
+  const [selected, setSelected] = useState(1);
+
+  useEffect(() => {
+    let arr = Array.from({ length: product.stock }, (_, i) => i + 1);
+    setProduct({ ...product, stock: arr });
+  }, []);
+
+  const { addToCart } = useContext(CartContext);
 
   return (
     <main className="max-w-7xl mx-auto sm:pt-16 sm:px-6 lg:px-8">
@@ -34,9 +44,9 @@ const PDP = (props) => {
             {/* Image selector */}
             <div className="hidden mt-6 w-full max-w-2xl mx-auto sm:block lg:max-w-none">
               <Tab.List className="grid grid-cols-4 gap-6">
-                {product.image.map((image) => (
+                {product.image.map((image, i) => (
                   <Tab
-                    key={image.id}
+                    key={i}
                     className="relative h-24 bg-white rounded-md flex items-center justify-center text-sm font-medium uppercase text-gray-900 cursor-pointer hover:bg-gray-50 focus:outline-none focus:ring focus:ring-offset-4 focus:ring-opacity-50"
                   >
                     {({ selected }) => (
@@ -53,8 +63,8 @@ const PDP = (props) => {
             </div>
 
             <Tab.Panels className="w-full aspect-w-1 aspect-h-1">
-              {product.image.map((image) => (
-                <Tab.Panel key={image.id}>
+              {product.image.map((image, i) => (
+                <Tab.Panel key={i}>
                   <img src={image} alt="" className="w-full h-full object-center object-cover sm:rounded-lg" />
                 </Tab.Panel>
               ))}
@@ -71,7 +81,7 @@ const PDP = (props) => {
             </div>
 
             {/* Reviews */}
-            <div className="mt-3">
+            {/* <div className="mt-3">
               <h3 className="sr-only">Reviews</h3>
               <div className="flex items-center">
                 <div className="flex items-center">
@@ -82,7 +92,7 @@ const PDP = (props) => {
                 </div>
                 <p className="sr-only">{product.rating.rate} out of 5 stars</p>
               </div>
-            </div>
+            </div> */}
 
             <div className="mt-6">
               <h3 className="sr-only">Description</h3>
@@ -90,21 +100,73 @@ const PDP = (props) => {
               <div className="text-base text-gray-700 space-y-6" dangerouslySetInnerHTML={{ __html: product.description }} />
             </div>
 
-            <form className="mt-6">
+            <div className="mt-6">
               <div className="mt-10 flex sm:flex-col1">
-                <button
-                  type="submit"
-                  className="max-w-xs flex-1 bg-indigo-600 border border-transparent rounded-md py-3 px-8 flex items-center justify-center text-base font-medium text-white hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-offset-gray-50 focus:ring-indigo-500 sm:w-full"
-                >
-                  Add to bag
-                </button>
+                {product.stock.length > 0 && (
+                  <Listbox value={selected} onChange={setSelected} disabled={product.stock === 0 ? true : false}>
+                    <div className="mt-1 relative">
+                      <Listbox.Button className="bg-white relative w-full border border-gray-300 rounded-md shadow-sm pl-3 pr-10 py-2 text-left cursor-default focus:outline-none focus:ring-1 focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm">
+                        <span className="block truncate">{selected}</span>
+                        <span className="absolute inset-y-0 right-0 flex items-center pr-2 pointer-events-none">
+                          <SelectorIcon className="h-5 w-5 text-gray-400" aria-hidden="true" />
+                        </span>
+                      </Listbox.Button>
 
-                <button type="button" className="ml-4 py-3 px-3 rounded-md flex items-center justify-center text-gray-400 hover:bg-gray-100 hover:text-gray-500">
+                      <Transition as={Fragment} leave="transition ease-in duration-100" leaveFrom="opacity-100" leaveTo="opacity-0">
+                        <Listbox.Options className="absolute z-10 mt-1 w-full bg-white shadow-lg max-h-60 rounded-md py-1 text-base ring-1 ring-black ring-opacity-5 overflow-auto focus:outline-none sm:text-sm">
+                          {product.stock.map((stock, i) => (
+                            <Listbox.Option
+                              key={i}
+                              className={({ active }) => classNames(active ? "text-white bg-indigo-600" : "text-gray-900", "cursor-default select-none relative py-2 pl-3 pr-9")}
+                              value={stock}
+                            >
+                              {({ selected, active }) => (
+                                <>
+                                  <span className={classNames(selected ? "font-semibold" : "font-normal", "block truncate")}>{stock}</span>
+
+                                  {selected ? (
+                                    <span className={classNames(active ? "text-white" : "text-indigo-600", "absolute inset-y-0 right-0 flex items-center pr-4")}>
+                                      <CheckIcon className="h-5 w-5" aria-hidden="true" />
+                                    </span>
+                                  ) : null}
+                                </>
+                              )}
+                            </Listbox.Option>
+                          ))}
+                        </Listbox.Options>
+                      </Transition>
+                    </div>
+                  </Listbox>
+                )}
+                {/* <button type="button" className="ml-4 py-3 px-3 rounded-md flex items-center justify-center text-gray-400 hover:bg-gray-100 hover:text-gray-500">
                   <HeartIcon className="h-6 w-6 flex-shrink-0" aria-hidden="true" />
                   <span className="sr-only">Add to favorites</span>
-                </button>
+                </button> */}
+
+                {product.stock.length === 0 ? (
+                  <button
+                    disabled
+                    type="button"
+                    className="max-w-xs flex-1 bg-gray-600 border border-transparent rounded-md py-3 ml-5 px-8 flex items-center justify-center text-base font-medium text-white hover:bg-gray-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-offset-gray-50 focus:ring-gray-500 sm:w-full"
+                  >
+                    Sin stock
+                  </button>
+                ) : (
+                  <button
+                    type="button"
+                    onClick={(e) => {
+                      addToCart({
+                        productId: product._id,
+                        quantity: selected,
+                      });
+                    }}
+                    className="max-w-xs flex-1 bg-indigo-600 border border-transparent rounded-md py-3 ml-5 px-8 flex items-center justify-center text-base font-medium text-white hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-offset-gray-50 focus:ring-indigo-500 sm:w-full"
+                  >
+                    Agregar al carrito
+                  </button>
+                )}
               </div>
-            </form>
+            </div>
 
             <section aria-labelledby="details-heading" className="mt-12">
               <h2 id="details-heading" className="sr-only">
