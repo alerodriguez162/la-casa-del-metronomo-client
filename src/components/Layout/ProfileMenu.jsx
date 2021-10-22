@@ -34,11 +34,6 @@ const ProfileMenu = () => {
           leaveTo="transform opacity-0 scale-95"
         >
           <Menu.Items className="origin-top-right absolute z-10 right-0 mt-2 w-48 rounded-md shadow-lg py-1 bg-white ring-1 ring-black ring-opacity-5 focus:outline-none">
-            <Menu.Item>
-              <NavLink to="/orders" activeClassName="bg-gray-100" className="block px-4 py-2 text-sm text-gray-700">
-                Historial de ordenes
-              </NavLink>
-            </Menu.Item>
             {currentUser.roles === "admin" && (
               <Menu.Item>
                 <NavLink to="/admin/users" activeClassName="bg-gray-100" className="block px-4 py-2 text-sm text-gray-700">
@@ -46,6 +41,14 @@ const ProfileMenu = () => {
                 </NavLink>
               </Menu.Item>
             )}
+            {currentUser.roles === "admin" && (
+              <Menu.Item>
+                <NavLink to="/orders" activeClassName="bg-gray-100" className="block px-4 py-2 text-sm text-gray-700">
+                  Historial de ordenes
+                </NavLink>
+              </Menu.Item>
+            )}
+
             <Menu.Item>
               <button onClick={() => logOut()} className="block px-4 py-2 text-sm text-gray-700">
                 Cerrar sesion

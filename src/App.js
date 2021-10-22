@@ -35,7 +35,7 @@ function App({ location }) {
         <CartProvider>
           <ProductsProvider>
             <UsersProvider>
-              {location.pathname.includes("admin") || location.pathname.includes("login") || location.pathname.includes("register") ? null : <Header />}
+              {location.pathname.includes("admin") || location.pathname.includes("login") || location.pathname.includes("register") || location.pathname.includes("summary") ? null : <Header />}
 
               <Switch>
                 <AuthRoute exact path="/login" component={Login} />
@@ -76,7 +76,7 @@ function App({ location }) {
           /> */}
               </Switch>
               <ToastContainer position="bottom-center" autoClose={5000} hideProgressBar={false} newestOnTop={false} closeOnClick rtl={false} pauseOnFocusLoss draggable pauseOnHover />
-              {location.pathname.includes("admin") || location.pathname.includes("login") || location.pathname.includes("register") ? null : <Footer />}
+              {location.pathname.includes("admin") || location.pathname.includes("login") || location.pathname.includes("register") || location.pathname.includes("summary") ? null : <Footer />}
             </UsersProvider>
           </ProductsProvider>
         </CartProvider>

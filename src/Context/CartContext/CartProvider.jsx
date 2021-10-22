@@ -7,6 +7,7 @@ import CartReducer from "./CartReducer";
 const CartProvider = (props) => {
   const initialState = {
     cart: {},
+    orders: [],
   };
 
   const [globalState, dispatch] = useReducer(CartReducer, initialState);
@@ -118,15 +119,37 @@ const CartProvider = (props) => {
     }
   };
 
+  const getOrders = async () => {
+    try {
+      const res = await axiosClient.get("/checkout/orders");
+      dispatch({
+        type: "GET_ORDERS",
+        payload: res.data.orders,
+      });
+    } catch (error) {
+      toast.error("Ha ocurrido un error, intente nuevamente", {
+        position: "bottom-center",
+        autoClose: 5000,
+        hideProgressBar: false,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true,
+        progress: undefined,
+      });
+    }
+  };
+
   return (
     <CartContext.Provider
       value={{
         cart: globalState.cart,
+        orders: globalState.orders,
         addToCart,
         clearCart,
         removeToCart,
         getCart,
         submitCheckout,
+        getOrders,
       }}
     >
       {props.children}

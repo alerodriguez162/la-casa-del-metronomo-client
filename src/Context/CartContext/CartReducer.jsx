@@ -5,6 +5,11 @@ const CartReducer = (globalState, action) => {
         ...globalState,
         cart: action.payload,
       };
+    case "GET_ORDERS":
+      return {
+        ...globalState,
+        orders: action.payload,
+      };
     default:
       return globalState;
   }
